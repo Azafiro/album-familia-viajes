@@ -7,16 +7,7 @@
           "title": "Prueba",
           "emoji": ":camera:",
           "description": "Test",
-          "entries": [
-            {
-              "id": "entry1",
-              "title": "Prueba",
-              "emoji": ":photo:",
-              "date": "2026-04-12",
-              "text": "Sincronizacion",
-              "imageData": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAAApJREFUCNdjYAAAAAIAAfLzGECwAAAAAElFTkSuQmCC"
-            }
-          ]
+          "entries": []
         }
       ]
     },
