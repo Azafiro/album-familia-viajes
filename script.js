@@ -8,8 +8,9 @@ const allowedNames = {
   'maría josé': 'María José'
 };
 const storageKey = 'albumFamiliaData';
+const CLOUD_API_URL = 'https://album-familia-viajes.vercel.app/api/data';
 let currentUser = null;
-let appData = loadData();
+let appData = { users: {} };
 
 const loginScreen = document.getElementById('login-screen');
 const appScreen = document.getElementById('app-screen');
@@ -24,7 +25,7 @@ const modal = document.getElementById('modal');
 const modalBody = document.getElementById('modal-body');
 const closeModal = document.getElementById('close-modal');
 
-loginForm.addEventListener('submit', event => {
+loginForm.addEventListener('submit', async event => {
   event.preventDefault();
   const name = loginNameInput.value.trim();
   const normalized = normalize(name);
@@ -36,7 +37,7 @@ loginForm.addEventListener('submit', event => {
   sessionStorage.setItem('albumFamiliaUser', currentUser);
   loginError.textContent = '';
   loginNameInput.value = '';
-  openApp();
+  await openApp();
 });
 
 addAlbumTop.addEventListener('click', openNewAlbumModal);
@@ -69,16 +70,38 @@ function createId() {
   return 'id-' + Math.random().toString(36).slice(2) + '-' + Date.now().toString(36);
 }
 
-function loadData() {
+async function loadData() {
   try {
-    return JSON.parse(localStorage.getItem(storageKey)) || { users: {} };
-  } catch {
-    return { users: {} };
+    const response = await fetch(CLOUD_API_URL);
+    if (!response.ok) {
+      throw new Error('Cloud sync failed');
+    }
+    const result = await response.json();
+    const data = result.data || { users: {} };
+    return data.users ? data : { users: {} };
+  } catch (error) {
+    console.warn('Cloud load failed, falling back to localStorage.', error);
+    try {
+      return JSON.parse(localStorage.getItem(storageKey)) || { users: {} };
+    } catch {
+      return { users: {} };
+    }
   }
 }
 
-function saveData() {
+async function saveData() {
   localStorage.setItem(storageKey, JSON.stringify(appData));
+  try {
+    await fetch(CLOUD_API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(appData)
+    });
+  } catch (error) {
+    console.warn('Cloud save failed, data kept locally.', error);
+  }
 }
 
 function ensureUserData() {
@@ -97,7 +120,7 @@ function ensureUserData() {
   }
 }
 
-function openApp() {
+async function openApp() {
   if (!currentUser) {
     currentUser = sessionStorage.getItem('albumFamiliaUser');
   }
@@ -105,7 +128,9 @@ function openApp() {
     showScreen(loginScreen);
     return;
   }
+  appData = await loadData();
   ensureUserData();
+  await saveData();
   showScreen(appScreen);
   renderAlbums();
   renderEntries();
