@@ -19,6 +19,17 @@
           ]
         }
       ]
+    },
+    "Neizan": {
+      "albums": [
+        {
+          "id": "7ac8c06f-795d-47cc-9c44-522a2a8bd828",
+          "title": "Recuerdos",
+          "emoji": "📸",
+          "description": "Álbum familiar principal para tus fotos.",
+          "entries": []
+        }
+      ]
     }
   }
 }
