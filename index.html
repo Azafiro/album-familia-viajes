@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Álbum Familiar de Viajes</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div id="login-screen" class="screen active">
+      <div class="login-card">
+        <div class="brand">
+          <div class="brand-icon">🌏</div>
+          <h1>Álbum familiar</h1>
+          <p>Accede con tu nombre o código en la familia.</p>
+        </div>
+
+        <form id="login-form" class="login-form">
+          <label for="login-name">¿Quién eres?</label>
+          <input id="login-name" type="text" placeholder="Escribe Neizan, Laura, Sheyla, Víctor o María José" autocomplete="off" required>
+          <button type="submit">Ingresar</button>
+          <p class="error" id="login-error"></p>
+        </form>
+      </div>
+    </div>
+
+    <div id="app-screen" class="screen">
+      <header class="topbar">
+        <div>
+          <p class="badge">Hecho con amor para mi gran familia por Neizan</p>
+          <h1>Cuaderno de viajes</h1>
+          <p class="subtitle">Agrega álbumes, fotos, títulos, fechas y emojis.</p>
+        </div>
+        <button id="logout-btn" class="ghost-btn">Salir</button>
+      </header>
+
+      <section class="hero-panel">
+        <div class="welcome-box">
+          <p>Bienvenido, <strong id="user-name"></strong></p>
+          <p class="hint">Tu contraseña es tu nombre familiar: Neizan, Laura, Sheyla, Víctor o María José.</p>
+        </div>
+        <button id="new-album-btn" class="primary-btn">+ Añadir álbum</button>
+      </section>
+
+      <main>
+        <section class="section-card">
+          <div class="section-header">
+            <div>
+              <h2>Mis álbumes</h2>
+              <p>Organiza tus viajes en álbumes con fotos y recuerdos.</p>
+            </div>
+            <button id="add-album-top" class="secondary-btn">Nuevo álbum</button>
+          </div>
+          <div id="albums-list" class="albums-grid"></div>
+        </section>
+
+        <section class="section-card">
+          <div class="section-header">
+            <div>
+              <h2>Últimos recuerdos</h2>
+              <p>Verás todas las fotos con su autor y fecha.</p>
+            </div>
+          </div>
+          <div id="entries-list" class="entries-grid"></div>
+        </section>
+      </main>
+    </div>
+
+    <div id="modal" class="modal hidden">
+      <div class="modal-panel">
+        <button id="close-modal" class="close-btn" aria-label="Cerrar ventana">×</button>
+        <div id="modal-body"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
