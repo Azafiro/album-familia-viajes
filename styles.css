@@ -252,6 +252,27 @@ main {
   display: block;
 }
 
+.entry-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.delete-entry {
+  background: transparent;
+  border: none;
+  color: #d62828;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 12px;
+}
+
+.delete-entry:hover {
+  background: rgba(214, 40, 40, 0.1);
+}
+
 .entry-footer {
   display: flex;
   justify-content: space-between;

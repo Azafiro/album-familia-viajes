@@ -124,7 +124,7 @@ function renderEntries() {
   Object.entries(appData.users).forEach(([user, userData]) => {
     userData.albums.forEach(album => {
       album.entries.forEach(entry => {
-        allEntries.push({ ...entry, albumTitle: album.title, author: user });
+        allEntries.push({ ...entry, albumTitle: album.title, author: user, albumId: album.id });
       });
     });
   });
@@ -138,7 +138,10 @@ function renderEntries() {
     const card = document.createElement('article');
     card.className = 'entry-card';
     card.innerHTML = `
-      <h3>${entry.emoji || '📷'} ${entry.title}</h3>
+      <div class="entry-title-row">
+        <h3>${entry.emoji || '📷'} ${entry.title}</h3>
+        ${entry.author === currentUser ? `<button type="button" class="delete-entry" data-album-id="${entry.albumId}" data-entry-id="${entry.id}" aria-label="Borrar publicación">🗑️</button>` : ''}
+      </div>
       <p>${entry.text || 'Sin descripción extra.'}</p>
       <img src="${entry.imageData}" alt="${entry.title}">
       <div class="entry-footer">
@@ -146,8 +149,24 @@ function renderEntries() {
         <span>${entry.date}</span>
       </div>
     `;
+    const deleteButton = card.querySelector('.delete-entry');
+    if (deleteButton) {
+      deleteButton.addEventListener('click', () => {
+        deleteEntry(deleteButton.dataset.albumId, deleteButton.dataset.entryId);
+      });
+    }
     entriesList.appendChild(card);
   });
+}
+
+function deleteEntry(albumId, entryId) {
+  if (!currentUser) return;
+  const album = appData.users[currentUser]?.albums.find(item => item.id === albumId);
+  if (!album) return;
+  album.entries = album.entries.filter(item => item.id !== entryId);
+  saveData();
+  renderAlbums();
+  renderEntries();
 }
 
 function openNewAlbumModal() {
