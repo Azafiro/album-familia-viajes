@@ -245,6 +245,29 @@ main {
   padding: 10px 14px;
 }
 
+.album-entry-list {
+  margin-top: 18px;
+  display: grid;
+  gap: 10px;
+}
+
+.album-entry-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: rgba(39, 110, 241, 0.08);
+  border-radius: 16px;
+  border: 1px solid rgba(39, 110, 241, 0.12);
+  font-size: 0.95rem;
+}
+
+.delete-entry.small {
+  padding: 6px;
+  font-size: 1rem;
+}
+
 .entry-card img {
   width: 100%;
   border-radius: 18px;

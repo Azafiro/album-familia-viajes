@@ -115,6 +115,25 @@ function renderAlbums() {
     `;
     const button = card.querySelector('button');
     button.addEventListener('click', () => openAddEntryModal(album.id));
+
+    if (album.entries.length) {
+      const entryList = document.createElement('div');
+      entryList.className = 'album-entry-list';
+      album.entries.forEach(entry => {
+        const entryItem = document.createElement('div');
+        entryItem.className = 'album-entry-item';
+        entryItem.innerHTML = `
+          <span>${entry.emoji || '📷'} ${entry.title}</span>
+          <button type="button" class="delete-entry small" data-album-id="${album.id}" data-entry-id="${entry.id}" aria-label="Borrar publicación">🗑️</button>
+        `;
+        entryList.appendChild(entryItem);
+      });
+      entryList.querySelectorAll('.delete-entry').forEach(deleteButton => {
+        deleteButton.addEventListener('click', () => deleteEntry(deleteButton.dataset.albumId, deleteButton.dataset.entryId));
+      });
+      card.appendChild(entryList);
+    }
+
     albumsList.appendChild(card);
   });
 }
