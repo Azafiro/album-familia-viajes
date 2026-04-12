@@ -31,17 +31,6 @@
           ]
         }
       ]
-    },
-    "Sheyla": {
-      "albums": [
-        {
-          "id": "199d1582-79c9-4e1a-b6cb-fd5fe90a5b14",
-          "title": "Recuerdos",
-          "emoji": "📸",
-          "description": "Álbum familiar principal para tus fotos.",
-          "entries": []
-        }
-      ]
     }
   }
 }
