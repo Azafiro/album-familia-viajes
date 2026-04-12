@@ -416,6 +416,13 @@ form .form-actions {
   flex-wrap: wrap;
 }
 
+.modal-error {
+  color: #b91c1c;
+  margin: 0 0 10px;
+  min-height: 20px;
+  font-size: 0.95rem;
+}
+
 form button {
   min-width: 120px;
 }

@@ -131,10 +131,10 @@ function renderAlbums() {
       <p>${album.description || 'Álbum familiar creado por ' + currentUser}.</p>
       <div class="album-actions">
         <span>${album.entries.length} recuerdos</span>
-        <button type="button" data-album-id="${album.id}">Agregar foto</button>
+        <button type="button" class="add-photo" data-album-id="${album.id}">Agregar foto</button>
       </div>
     `;
-    const button = card.querySelector('button');
+    const button = card.querySelector('.add-photo');
     button.addEventListener('click', () => openAddEntryModal(album.id));
 
     if (album.entries.length) {
@@ -276,12 +276,18 @@ function openAddEntryModal(albumId) {
         <label for="entry-text">Texto o recuerdo</label>
         <textarea id="entry-text" placeholder="Describe el momento o pon emojis"></textarea>
       </div>
+      <p class="modal-error" id="modal-error"></p>
       <div class="form-actions">
         <button type="button" class="ghost-btn" id="cancel-entry">Cancelar</button>
         <button type="submit" class="primary-btn">Guardar foto</button>
       </div>
     </form>
   `);
+  const modalError = document.getElementById('modal-error');
+  const fileInput = document.getElementById('entry-image');
+  fileInput.addEventListener('change', () => {
+    if (modalError) modalError.textContent = '';
+  });
   document.getElementById('cancel-entry').addEventListener('click', hideModal);
   document.getElementById('entry-form').addEventListener('submit', event => {
     event.preventDefault();
@@ -290,7 +296,18 @@ function openAddEntryModal(albumId) {
     const emoji = document.getElementById('entry-emoji').value.trim();
     const date = document.getElementById('entry-date').value;
     const text = document.getElementById('entry-text').value.trim();
-    if (!fileInput.files.length || !title || !date) return;
+    if (!fileInput.files.length) {
+      modalError.textContent = 'Selecciona una imagen para continuar.';
+      return;
+    }
+    if (!title) {
+      modalError.textContent = 'Escribe un título para la foto.';
+      return;
+    }
+    if (!date) {
+      modalError.textContent = 'Selecciona una fecha para la publicación.';
+      return;
+    }
     const file = fileInput.files[0];
     const reader = new FileReader();
     reader.onload = () => {
@@ -304,7 +321,10 @@ function openAddEntryModal(albumId) {
         uploadedAt: Date.now()
       };
       const album = appData.users[currentUser].albums.find(item => item.id === albumId);
-      if (!album) return;
+      if (!album) {
+        modalError.textContent = 'No se encontró el álbum. Intenta de nuevo.';
+        return;
+      }
       album.entries.push(entry);
       saveData();
       renderAlbums();
