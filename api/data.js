@@ -23,8 +23,29 @@ async function getFile() {
     const text = await response.text();
     throw new Error(`GitHub read failed: ${response.status} ${text}`);
   }
-  const data = await response.json();
-  const content = JSON.parse(Buffer.from(data.content, 'base64').toString('utf8'));
+  const responseText = await response.text();
+  if (!responseText) {
+    throw new Error('GitHub returned empty response body.');
+  }
+  let data;
+  try {
+    data = JSON.parse(responseText);
+  } catch (error) {
+    throw new Error(`GitHub JSON parse failed: ${error.message}. Raw response: ${responseText.slice(0, 500)}`);
+  }
+  if (!data.content || typeof data.content !== 'string') {
+    return { exists: false };
+  }
+  const fileText = Buffer.from(data.content, 'base64').toString('utf8');
+  if (!fileText) {
+    return { exists: false };
+  }
+  let content;
+  try {
+    content = JSON.parse(fileText);
+  } catch (error) {
+    throw new Error(`Stored data parse failed: ${error.message}. File content: ${fileText.slice(0, 500)}`);
+  }
   return { exists: true, content, sha: data.sha };
 }
 
