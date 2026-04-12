@@ -1,8 +1,10 @@
 :root {
   color-scheme: dark;
   font-family: Inter, system-ui, sans-serif;
-  background: #e7f0ff;
-  color: #102a43;
+  background: radial-gradient(circle at top left, rgba(59, 130, 246, 0.16), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(139, 92, 246, 0.18), transparent 30%),
+    #eef2ff;
+  color: #0f172a;
 }
 
 * {
@@ -12,7 +14,7 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: radial-gradient(circle at top, rgba(34, 112, 218, 0.12), transparent 32%), #eef6ff;
+  background: linear-gradient(180deg, #eef2ff 0%, #dbeafe 100%);
 }
 
 .container {
@@ -33,9 +35,10 @@ body {
 .section-card,
 .hero-panel,
 .modal-panel {
-  background: #ffffff;
-  border-radius: 22px;
-  box-shadow: 0 20px 60px rgba(31, 83, 197, 0.08);
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 30px;
+  box-shadow: 0 28px 80px rgba(59, 130, 246, 0.12);
+  border: 1px solid rgba(99, 102, 241, 0.18);
 }
 
 .login-card {
@@ -47,12 +50,12 @@ body {
 
 .brand {
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
 }
 
 .brand-icon {
-  font-size: 48px;
-  margin-bottom: 12px;
+  font-size: 54px;
+  margin-bottom: 14px;
 }
 
 .brand h1 {
@@ -84,13 +87,19 @@ body {
 }
 
 .login-form button {
-  background: #276ef1;
+  background: linear-gradient(135deg, #4338ca 0%, #2563eb 100%);
   color: #ffffff;
   border: none;
-  border-radius: 16px;
-  padding: 14px 20px;
+  border-radius: 18px;
+  padding: 14px 22px;
   font-size: 1rem;
   cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.login-form button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 30px rgba(37, 99, 235, 0.2);
 }
 
 .login-form .error {
@@ -103,13 +112,16 @@ body {
   justify-content: space-between;
   gap: 16px;
   align-items: center;
-  padding: 22px 28px;
+  padding: 26px 30px;
   margin-bottom: 24px;
+  background: linear-gradient(135deg, #2563eb 0%, #8b5cf6 100%);
+  color: #ffffff;
+  border-radius: 32px;
 }
 
 .topbar h1 {
   margin: 0 0 8px;
-  font-size: clamp(1.8rem, 2vw, 2.4rem);
+  font-size: clamp(1.9rem, 2vw, 2.5rem);
 }
 
 .topbar .subtitle,
@@ -120,8 +132,8 @@ body {
 
 .badge {
   display: inline-block;
-  background: rgba(39, 110, 241, 0.1);
-  color: #1d4ed8;
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
   padding: 8px 14px;
   border-radius: 999px;
   font-size: 0.9rem;
@@ -148,7 +160,7 @@ button {
 .primary-btn,
 button.primary-btn,
 .secondary-btn {
-  background: #276ef1;
+  background: linear-gradient(135deg, #2563eb 0%, #8b5cf6 100%);
   color: #ffffff;
   padding: 14px 20px;
 }
@@ -160,17 +172,27 @@ button.primary-btn,
 }
 
 .hero-panel {
+  background: radial-gradient(circle at top left, rgba(37, 99, 235, 0.16), transparent 40%),
+    linear-gradient(180deg, #ffffff 0%, #eff6ff 100%);
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   gap: 18px;
-  padding: 22px 28px;
+  padding: 28px 32px;
   margin-bottom: 24px;
 }
 
-.welcome-box p {
-  margin: 0 0 8px;
+.hero-content {
+  max-width: 760px;
+  text-align: center;
+}
+
+.hero-content .intro {
+  margin: 0;
+  font-size: 1.18rem;
+  color: #1e3a8a;
+  font-weight: 700;
+  line-height: 1.6;
 }
 
 .hint {
@@ -183,7 +205,9 @@ main {
 }
 
 .section-card {
-  padding: 24px;
+  padding: 26px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(59, 130, 246, 0.14);
 }
 
 .section-header {
@@ -192,7 +216,7 @@ main {
   flex-wrap: wrap;
   gap: 16px;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 22px;
 }
 
 .albums-grid,
@@ -207,10 +231,11 @@ main {
 
 .album-card,
 .entry-card {
-  background: #f8fbff;
-  border-radius: 20px;
-  padding: 20px;
-  border: 1px solid rgba(39, 110, 241, 0.08);
+  background: #ffffff;
+  border-radius: 28px;
+  padding: 22px;
+  border: 1px solid rgba(59, 130, 246, 0.16);
+  box-shadow: 0 22px 48px rgba(59, 130, 246, 0.08);
 }
 
 .album-card h3,
@@ -240,9 +265,10 @@ main {
 
 .album-actions button {
   background: #ffffff;
-  color: #1f4db3;
-  border: 1px solid rgba(39, 110, 241, 0.24);
+  color: #1f256e;
+  border: 1px solid rgba(99, 102, 241, 0.32);
   padding: 10px 14px;
+  border-radius: 16px;
 }
 
 .album-entry-list {
@@ -270,9 +296,10 @@ main {
 
 .entry-card img {
   width: 100%;
-  border-radius: 18px;
-  margin: 14px 0;
+  border-radius: 24px;
+  margin: 16px 0;
   display: block;
+  box-shadow: 0 20px 40px rgba(59, 130, 246, 0.12);
 }
 
 .entry-title-row {
@@ -285,15 +312,16 @@ main {
 .delete-entry {
   background: transparent;
   border: none;
-  color: #d62828;
+  color: #ef4444;
   font-size: 1.1rem;
   cursor: pointer;
   padding: 8px;
-  border-radius: 12px;
+  border-radius: 14px;
+  transition: background 180ms ease;
 }
 
 .delete-entry:hover {
-  background: rgba(214, 40, 40, 0.1);
+  background: rgba(239, 68, 68, 0.12);
 }
 
 .entry-footer {
@@ -302,6 +330,19 @@ main {
   font-size: 0.92rem;
   color: #475569;
   margin-top: 12px;
+}
+
+.entry-card {
+  position: relative;
+}
+
+.entry-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(37, 99, 235, 0.04), transparent 50%);
+  pointer-events: none;
 }
 
 .entry-avatar {

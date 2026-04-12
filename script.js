@@ -16,11 +16,8 @@ const appScreen = document.getElementById('app-screen');
 const loginForm = document.getElementById('login-form');
 const loginNameInput = document.getElementById('login-name');
 const loginError = document.getElementById('login-error');
-const userNameDisplay = document.getElementById('user-name');
 const albumsList = document.getElementById('albums-list');
 const entriesList = document.getElementById('entries-list');
-const newAlbumBtn = document.getElementById('new-album-btn');
-const addAlbumTop = document.getElementById('add-album-top');
 const logoutBtn = document.getElementById('logout-btn');
 const modal = document.getElementById('modal');
 const modalBody = document.getElementById('modal-body');
@@ -41,8 +38,6 @@ loginForm.addEventListener('submit', event => {
   openApp();
 });
 
-newAlbumBtn.addEventListener('click', openNewAlbumModal);
-addAlbumTop.addEventListener('click', openNewAlbumModal);
 logoutBtn.addEventListener('click', () => {
   sessionStorage.removeItem('albumFamiliaUser');
   currentUser = null;
@@ -73,6 +68,16 @@ function ensureUserData() {
   if (!appData.users[currentUser]) {
     appData.users[currentUser] = { albums: [] };
   }
+  if (!appData.users[currentUser].albums.length) {
+    appData.users[currentUser].albums.push({
+      id: crypto.randomUUID(),
+      title: 'Recuerdos',
+      emoji: '📸',
+      description: 'Álbum familiar principal para tus fotos.',
+      entries: []
+    });
+    saveData();
+  }
 }
 
 function openApp() {
@@ -84,7 +89,6 @@ function openApp() {
     return;
   }
   ensureUserData();
-  userNameDisplay.textContent = currentUser;
   showScreen(appScreen);
   renderAlbums();
   renderEntries();
