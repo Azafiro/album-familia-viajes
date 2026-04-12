@@ -49,7 +49,22 @@ modal.addEventListener('click', event => {
 });
 
 function normalize(text) {
-  return text.trim().toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '');
+  const normalized = text.trim().toLowerCase();
+  return normalized
+    .replace(/á/g, 'a')
+    .replace(/é/g, 'e')
+    .replace(/í/g, 'i')
+    .replace(/ó/g, 'o')
+    .replace(/ú/g, 'u')
+    .replace(/ü/g, 'u')
+    .replace(/ñ/g, 'n');
+}
+
+function createId() {
+  if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+    return crypto.randomUUID();
+  }
+  return 'id-' + Math.random().toString(36).slice(2) + '-' + Date.now().toString(36);
 }
 
 function loadData() {
@@ -70,7 +85,7 @@ function ensureUserData() {
   }
   if (!appData.users[currentUser].albums.length) {
     appData.users[currentUser].albums.push({
-      id: crypto.randomUUID(),
+      id: createId(),
       title: 'Recuerdos',
       emoji: '📸',
       description: 'Álbum familiar principal para tus fotos.',
@@ -222,7 +237,7 @@ function openNewAlbumModal() {
     const description = document.getElementById('album-description').value.trim();
     if (!title) return;
     const album = {
-      id: crypto.randomUUID(),
+      id: createId(),
       title,
       emoji,
       description,
@@ -278,7 +293,7 @@ function openAddEntryModal(albumId) {
     const reader = new FileReader();
     reader.onload = () => {
       const entry = {
-        id: crypto.randomUUID(),
+        id: createId(),
         title,
         emoji,
         date,
