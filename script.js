@@ -18,6 +18,7 @@ const loginNameInput = document.getElementById('login-name');
 const loginError = document.getElementById('login-error');
 const albumsList = document.getElementById('albums-list');
 const entriesList = document.getElementById('entries-list');
+const addAlbumTop = document.getElementById('add-album-top');
 const logoutBtn = document.getElementById('logout-btn');
 const modal = document.getElementById('modal');
 const modalBody = document.getElementById('modal-body');
@@ -38,6 +39,7 @@ loginForm.addEventListener('submit', event => {
   openApp();
 });
 
+addAlbumTop.addEventListener('click', openNewAlbumModal);
 logoutBtn.addEventListener('click', () => {
   sessionStorage.removeItem('albumFamiliaUser');
   currentUser = null;
