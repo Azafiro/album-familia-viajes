@@ -55,7 +55,7 @@ export default async function handler(req, res) {
 
   if (req.method === 'POST') {
     try {
-      const body = await req.json();
+      const body = req.body || {};
       const file = await getFile();
       const content = Buffer.from(JSON.stringify(body, null, 2)).toString('base64');
       const payload = {
