@@ -33,11 +33,23 @@ async function getFile() {
   } catch (error) {
     throw new Error(`GitHub JSON parse failed: ${error.message}. Raw response: ${responseText.slice(0, 500)}`);
   }
-  if (!data.content || typeof data.content !== 'string') {
-    return { exists: false };
+
+  let fileText = '';
+  if (typeof data.content === 'string' && data.content.length > 0) {
+    if (data.encoding === 'base64') {
+      fileText = Buffer.from(data.content, 'base64').toString('utf8');
+    } else {
+      fileText = data.content;
+    }
+  } else if (data.download_url) {
+    const rawResponse = await fetch(data.download_url);
+    if (!rawResponse.ok) {
+      throw new Error(`GitHub download_url failed: ${rawResponse.status}`);
+    }
+    fileText = await rawResponse.text();
   }
-  const fileText = Buffer.from(data.content, 'base64').toString('utf8');
-  if (!fileText) {
+
+  if (!fileText || !fileText.trim()) {
     return { exists: false };
   }
   let content;
