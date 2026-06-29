@@ -41,6 +41,13 @@
           "emoji": "📸",
           "description": "Álbum familiar principal para tus fotos.",
           "entries": []
+        },
+        {
+          "id": "8c95eef4-82c7-4838-b3ff-282bedf1a2cd",
+          "title": "Concierto BTS",
+          "emoji": "",
+          "description": "",
+          "entries": []
         }
       ]
     }
